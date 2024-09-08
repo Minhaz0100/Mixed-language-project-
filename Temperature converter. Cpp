@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+
+class Temperature {
+private:
+    double celsius;
+    bool isValidTemperature(double value) {
+        return value >= -273.15;
+    }
+
+public:
+    Temperature(double celsius = 0.0) {
+        if (isValidTemperature(celsius)) {
+            this->celsius = celsius;
+        } else {
+            this->celsius = 0.0; 
+            cout << "Invalid temperature! Setting to 0°C." << endl;
+        }
+    }
+    void setCelsius(double celsius) {
+        if (isValidTemperature(celsius)) {
+            this->celsius = celsius;
+        } else {
+            cout << "Invalid temperature! Temperature remains unchanged." << endl;
+        }
+    }
+    double getCelsius() const {
+        return celsius;
+    }
+    double toFahrenheit() const {
+        return (celsius * 9 / 5) + 32;
+    }
+    double toKelvin() const {
+        return celsius + 273.15;
+    }
+    void displayConversions() const {
+        cout << "Temperature in Celsius: " << getCelsius() << "°C" << endl;
+        cout << "Temperature in Fahrenheit: " << toFahrenheit() << "°F" << endl;
+        cout << "Temperature in Kelvin: " << toKelvin() << "K" << endl;
+    }
+};
+
+int main() {
+    double tempValue;
+    cout << "Enter the temperature in Celsius: ";
+    cin >> tempValue;
+    Temperature temp(tempValue);
+    temp.displayConversions();
+    cout << "Enter a new temperature in Celsius to update: ";
+    cin >> tempValue;
+    temp.setCelsius(tempValue);
+    temp.displayConversions();
+
+    return 0;
+}
